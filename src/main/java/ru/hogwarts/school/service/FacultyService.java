@@ -5,7 +5,6 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repository.FacultyRepository;
 
 @Service
-
 public class FacultyService {
     private final FacultyRepository facultyRepository;
     @Autowired
@@ -16,15 +15,15 @@ public class FacultyService {
     public Faculty createFaculty(Faculty faculty) {
         return facultyRepository.save(faculty);
     }
-    public Faculty findById(Long facultyId) {
-        return facultyRepository.findById(facultyId).get();
+    public Faculty findById(Long id) {
+        return facultyRepository.findById(id).get();
     }
 
     public Faculty updateFaculty(Faculty faculty) {
         return facultyRepository.save(faculty);
     }
-    public void deleteFaculty(Long facultyId) {
-        facultyRepository.deleteById(facultyId);
+    public void deleteFaculty(Long id) {
+        facultyRepository.deleteById(id);
     }
 
 }

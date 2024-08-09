@@ -4,7 +4,8 @@ import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
-import java.util.HashMap;
+import java.util.Collection;
+
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
@@ -17,16 +18,20 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public Student getStudentById(Long studentId) {
-        return studentRepository.findById(studentId).get();
+    public Student getStudentById(Long id) {
+        return studentRepository.findById(id).get();
     }
 
     public Student updateStudent(Student student) {
         return studentRepository.save(student);
     }
 
-    public void deleteStudent(Long studentId) {
-        studentRepository.deleteById(studentId);
+    public void deleteStudent(Long id) {
+        studentRepository.deleteById(id);
+    }
+
+    public Collection findAll() {
+       return studentRepository.findAll();
     }
 
 }
