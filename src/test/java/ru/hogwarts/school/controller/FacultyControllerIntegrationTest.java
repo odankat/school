@@ -36,7 +36,6 @@ public class FacultyControllerIntegrationTest {
     @BeforeEach
      void clearDatabase() {
         facultyRepository.deleteAll();
-        studentRepository.deleteAll();
     }
 
     @Test
@@ -83,12 +82,12 @@ public class FacultyControllerIntegrationTest {
         //given
         Faculty faculty1 = new Faculty(1L, "name1", "color1");
         Faculty faculty2 = new Faculty(1L, "name2", "color2");
-        Faculty faculty3 = new Faculty(1L, "name1", "color3");
-        facultyRepository.save(faculty3);
-        facultyRepository.save(faculty1);
+        Faculty faculty3 = new Faculty(1L, "name3", "color3");
         facultyRepository.save(faculty2);
+        facultyRepository.save(faculty3);
+        Faculty expected = facultyRepository.save(faculty1);
         List<Faculty> expectedFacultyList = new ArrayList<>();
-        expectedFacultyList.add(facultyRepository.save(faculty1));
+        expectedFacultyList.add(expected);
 
         //when
         ResponseEntity<List<Faculty>> facultyResponseEntity = restTemplate.exchange(
