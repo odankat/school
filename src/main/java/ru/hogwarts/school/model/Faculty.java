@@ -78,4 +78,7 @@ public class Faculty {
         return students;
     }
 
+    public void setStudents(Set<Student> students) {
+        this.students = students;
+    }
 }
