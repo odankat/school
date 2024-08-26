@@ -6,6 +6,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 @Service
@@ -19,7 +20,7 @@ public class FacultyService {
     public Faculty createFaculty(Faculty faculty) {
         return facultyRepository.save(faculty);
     }
-    public Faculty findById(Long id) {
+    public Faculty findById(Long id)  {
         return facultyRepository.findById(id).get();
     }
 
