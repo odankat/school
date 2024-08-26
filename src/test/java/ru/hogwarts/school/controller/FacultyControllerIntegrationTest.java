@@ -35,7 +35,9 @@ public class FacultyControllerIntegrationTest {
 
     @BeforeEach
      void clearDatabase() {
+        studentRepository.deleteAll();
         facultyRepository.deleteAll();
+        studentRepository.deleteAll();
     }
 
     @Test
@@ -107,8 +109,8 @@ public class FacultyControllerIntegrationTest {
     @Test
     void shouldGetStudents() {
         //given
-        Faculty faculty1 = new Faculty(1L, "name1", "color1");
-        facultyRepository.save(faculty1);
+        Faculty faculty = new Faculty(1L, "name1", "color1");
+        Faculty faculty1 = facultyRepository.save(faculty);
         Student student = new Student(1L, "name", 10);
         Student student2 = new Student(2L, "nameQ", 10);
         student.setFaculty(faculty1);
@@ -129,17 +131,18 @@ public class FacultyControllerIntegrationTest {
         assertNotNull(facultyResponseEntity);
         assertEquals(facultyResponseEntity.getStatusCode(), HttpStatus.valueOf(200));
         assertEquals(facultyResponseEntity.getBody(), studentsExpected);
+
     }
 
     @Test
     void shouldUpdateFaculty() {
         //given
-        Faculty faculty = new Faculty(1L, "name1", "color1");
-        facultyRepository.save(faculty);
-        Faculty facultyExpected = new Faculty(1L, "test", "tectColor");
+        Faculty facultyAbs = new Faculty(1L, "name1", "color1");
+        Faculty faculty = facultyRepository.save(facultyAbs);
+        Faculty facultyExpected = new Faculty(faculty.getId(), "test", "tectColor");
 
         //when
-        restTemplate.put(
+         restTemplate.put(
                 "http://localhost:" + port + "/faculty?id=" + faculty.getId(),
                 facultyExpected
         );
