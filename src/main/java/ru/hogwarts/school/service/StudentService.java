@@ -35,7 +35,7 @@ public class StudentService {
     }
 
     public Student getStudentById(Long id) {
-        return studentRepository.findById(id).get();
+        return studentRepository.findById(id).orElse(null);
     }
 
     public Student updateStudent(Student student) {
@@ -50,7 +50,7 @@ public class StudentService {
         return studentRepository.findAllByAgeBetween(minAge, maxAge);
     }
 
-    public Collection findAll() {
+    public List<Student> findAll() {
        return studentRepository.findAll();
     }
 

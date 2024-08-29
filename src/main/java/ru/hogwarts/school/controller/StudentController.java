@@ -45,16 +45,17 @@ public class StudentController {
     }
 
     @GetMapping()
-    public Collection getAll() {
+    public List<Student> getAll() {
         return studentService.findAll();
     }
+
     @GetMapping("byAgeBetween")
     public List<Student> findAllByAgeBetween(int minAge, int maxAge) {
         return studentService.findAllByAgeBetween(minAge, maxAge);
     }
 
 
-        @PutMapping()
+    @PutMapping()
     public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
         Student updateStudent = studentService.updateStudent(student);
         if (updateStudent == null) {
@@ -68,6 +69,7 @@ public class StudentController {
         studentService.deleteStudent(id);
         return ResponseEntity.ok().build();
     }
+
     @GetMapping("{id}/faculty")
     public Faculty getFaculty(@PathVariable Long id) {
         return studentService.getFaculty(id);

@@ -20,8 +20,9 @@ public class FacultyService {
     public Faculty createFaculty(Faculty faculty) {
         return facultyRepository.save(faculty);
     }
-    public Faculty findById(Long id)  {
-        return facultyRepository.findById(id).get();
+    public Faculty findById(Long id) {
+        return facultyRepository.findById(id)
+                .orElse(null);
     }
 
     public Faculty updateFaculty(Faculty faculty) {

@@ -1,6 +1,4 @@
 package ru.hogwarts.school.controller;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +16,6 @@ import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.*;
 
-import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
@@ -177,30 +173,11 @@ public class FacultyControllerIntegrationTest {
                 null,
                 new ParameterizedTypeReference<Faculty>() {
                 }
-
         );
         //then
         assertEquals(facultyResponseEntity.getStatusCode(), HttpStatus.valueOf(200));
         assertEquals(result1.getStatusCode(),HttpStatus.valueOf(404));
     }
 
-    @Test
-    void deleteFaculty() throws Exception {
-        Faculty faculty = new Faculty();
-        faculty.setName("Gryffindor");
-        faculty.setColor("red");
-        faculty.setId(1L);
-
-        ResponseEntity<Faculty> facultyResponseEntity = restTemplate.postForEntity("/faculty", faculty, Faculty.class);
-        Long savedFacultyId = requireNonNull(facultyResponseEntity.getBody()).getId();
-
-        ResponseEntity<Faculty> findResponse = restTemplate.getForEntity("/faculty/" + savedFacultyId, Faculty.class);
-        org.assertj.core.api.Assertions.assertThat(findResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-        restTemplate.delete("/faculty/" + savedFacultyId);
-
-        ResponseEntity<Faculty> response = restTemplate.getForEntity("/faculty/" + savedFacultyId, Faculty.class);
-        org.assertj.core.api.Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-    }
 
 }
