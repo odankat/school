@@ -1,6 +1,8 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school.model.Avatar;
@@ -81,5 +83,10 @@ public class AvatarService {
         return avatarRepository.findById(avatarId).orElseThrow(() ->
                 new IllegalArgumentException("Avatar with id " + avatarId + " is not found in database"));
 
+    }
+
+    public Page<Avatar> findAll(int page, int size) {
+        var pageRequest = PageRequest.of(page, size);
+        return avatarRepository.findAll(pageRequest);
     }
 }

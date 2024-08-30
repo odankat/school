@@ -2,20 +2,12 @@ package ru.hogwarts.school.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.AvatarRepository;
 import ru.hogwarts.school.repository.StudentRepository;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Collection;
 import java.util.List;
-
-import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
 @Service
 public class StudentService {
@@ -58,6 +50,18 @@ public class StudentService {
         return studentRepository.findById(studentId)
                 .map(Student::getFaculty)
                 .orElse(null);
+    }
+
+    public Integer getNumberAllStudent() {
+        return studentRepository.getNumbersAllStudent();
+    }
+
+    public Integer getMiddleAgeStudent() {
+        return studentRepository.getMiddleAgeStudent();
+    }
+
+    public List<Student> getLustStudent() {
+        return studentRepository.getLustStudent();
     }
 
 }

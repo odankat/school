@@ -15,7 +15,6 @@ import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -110,8 +109,8 @@ public class StudentControllerIntegrationTest {
         Student studentAbs1 = new Student(2L, "name1", 15);
         Student studentAbs2 = new Student(3L, "name2", 20);
         Student student = studentRepository.save(studentAbs);
-        Student student1= studentRepository.save(studentAbs1);
-        Student student2= studentRepository.save(studentAbs2);
+        Student student1 = studentRepository.save(studentAbs1);
+        Student student2 = studentRepository.save(studentAbs2);
         Student s = student;
         Student s1 = student1;
         List<Student> students = new ArrayList<>();
@@ -146,8 +145,8 @@ public class StudentControllerIntegrationTest {
                 "http://localhost:" + port + "/student/" + student.getId(),
                 Student.class
         );
-        assertEquals(studentExpected.getAge(),studentActual.getAge());
-        assertEquals(studentExpected.getName(),studentActual.getName());
+        assertEquals(studentExpected.getAge(), studentActual.getAge());
+        assertEquals(studentExpected.getName(), studentActual.getName());
     }
 
     @Test
@@ -170,11 +169,81 @@ public class StudentControllerIntegrationTest {
         );
         //then
         assertEquals(studentResponseEntity.getStatusCode(), HttpStatus.valueOf(200));
-        assertEquals(result .getStatusCode(),HttpStatus.valueOf(404));
-
+        assertEquals(result.getStatusCode(), HttpStatus.valueOf(404));
     }
 
+    @Test
+    void shouldGetNumberAllStudent() {
+        //given
+        Student student = new Student(1L, "name", 10);
+        Student student1 = new Student(2L, "name1", 10);
+        Student student2 = new Student(3L, "name2", 10);
+        studentRepository.save(student);
+        studentRepository.save(student1);
+        studentRepository.save(student2);
+        int a = 3;
+        //when
+        ResponseEntity<Integer> studentResponseEntity = restTemplate.getForEntity(
+                "http://localhost:" + port + "/student/number",
+                Integer.class
+        );
+        //then
+        assertEquals(studentResponseEntity.getStatusCode(), HttpStatus.valueOf(200));
+        assertEquals(a, studentResponseEntity.getBody());
+    }
 
+    @Test
+    void shouldGetMiddleAgeStudent() {
+        //given
+        Student student = new Student(1L, "name", 10);
+        Student student1 = new Student(2L, "name1", 15);
+        Student student2 = new Student(3L, "name2", 20);
+        studentRepository.save(student);
+        studentRepository.save(student1);
+        studentRepository.save(student2);
+        int middleAge = (student.getAge() + student1.getAge() + student2.getAge()) / studentRepository.findAll().size();
+        //when
+        ResponseEntity<Integer> studentResponseEntity = restTemplate.getForEntity(
+                "http://localhost:" + port + "/student/middle_age",
+                Integer.class
+        );
+        //then
+        assertEquals(studentResponseEntity.getStatusCode(), HttpStatus.valueOf(200));
+        assertEquals(middleAge, studentResponseEntity.getBody());
+    }
+
+    @Test
+    void shouldGetLustStudent() {
+        //given
+        Student student = new Student(1L, "name", 10);
+        Student student1 = new Student(2L, "name1", 15);
+        Student student2 = new Student(3L, "name2", 20);
+        Student student3 = new Student(4L, "name4", 10);
+        Student student4 = new Student(5L, "name5", 15);
+        Student student5 = new Student(6L, "name6", 20);
+        studentRepository.save(student);
+        studentRepository.save(student1);
+        studentRepository.save(student2);
+        studentRepository.save(student3);
+        studentRepository.save(student4);
+        studentRepository.save(student5);
+        List<Student> students = new ArrayList<>();
+        students.add(student5);
+        students.add(student4);
+        students.add(student3);
+        students.add(student2);
+        students.add(student1);
+        //when
+        ResponseEntity<List<Student>> studentResponseEntity = restTemplate.exchange(
+                "http://localhost:" + port + "/student/lust_student",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<>() {
+                });
+        //then
+        assertEquals(studentResponseEntity.getStatusCode(), HttpStatus.valueOf(200));
+        assertEquals(students,studentResponseEntity.getBody());
+    }
 
 
 }
