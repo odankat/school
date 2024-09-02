@@ -34,9 +34,10 @@ public class FacultyController {
     }
 
     @GetMapping("findAllByColorOrName")
-    public List<Faculty> findAllByColor(@RequestParam(required = false) String name,@RequestParam(required = false) String color) {
+    public List<Faculty> findAllByColor(@RequestParam(required = false) String name, @RequestParam(required = false) String color) {
         return facultyService.findAllByColorBetween(name, color);
     }
+
     @GetMapping("{id}/students")
     public Collection<Student> getStudents(@PathVariable Long id) {
         return facultyService.getStudents(id);

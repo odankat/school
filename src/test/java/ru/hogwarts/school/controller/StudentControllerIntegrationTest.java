@@ -242,8 +242,6 @@ public class StudentControllerIntegrationTest {
                 });
         //then
         assertEquals(studentResponseEntity.getStatusCode(), HttpStatus.valueOf(200));
-        assertEquals(students,studentResponseEntity.getBody());
+        assertEquals(students, studentResponseEntity.getBody());
     }
-
-
 }

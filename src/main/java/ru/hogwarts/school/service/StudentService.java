@@ -1,4 +1,5 @@
 package ru.hogwarts.school.service;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ public class StudentService {
     private String avatarsDir;
     private final StudentRepository studentRepository;
     private final AvatarRepository avatarRepository;
+
     @Autowired
     public StudentService(StudentRepository studentRepository, AvatarRepository avatarRepository) {
         this.studentRepository = studentRepository;
@@ -43,7 +45,7 @@ public class StudentService {
     }
 
     public List<Student> findAll() {
-       return studentRepository.findAll();
+        return studentRepository.findAll();
     }
 
     public Faculty getFaculty(Long studentId) {
