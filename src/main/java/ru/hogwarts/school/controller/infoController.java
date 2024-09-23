@@ -11,6 +11,9 @@ import ru.hogwarts.school.service.PortService;
 @RequestMapping("port")
 
 public class infoController {
+    @Value("${server.port}")
+    private String port;
+
     @Autowired
     private final PortService portService;
 
@@ -20,6 +23,7 @@ public class infoController {
 
     @GetMapping
     public String infoPort() {
-        return portService.portInfo();
+        // return portService.portInfo();
+        return port;
     }
 }
