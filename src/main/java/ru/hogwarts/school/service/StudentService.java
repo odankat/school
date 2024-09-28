@@ -11,6 +11,7 @@ import ru.hogwarts.school.repository.AvatarRepository;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -77,6 +78,23 @@ public class StudentService {
     public List<Student> getLustStudent() {
         logger.info("method for get lust student");
         return studentRepository.getLustStudent();
+    }
+    public List<String> getStudentStartWithA(){
+        logger.info("method for get all students whose name begins with A");
+        return studentRepository.findAll()
+                .stream()
+                .map(Student::getName)
+                .map(String::toUpperCase)
+                .filter(it -> it.startsWith("A"))
+                .sorted()
+                .collect(Collectors.toList());
+    }
+    public double averageAgeOfStudents(){
+        return studentRepository.findAll()
+                .stream()
+                .mapToInt(Student::getAge)
+                .average()
+                .orElse(0);
     }
 
 }

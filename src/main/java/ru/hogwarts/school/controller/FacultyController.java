@@ -60,5 +60,10 @@ public class FacultyController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("long_name")
+    public String getLongName() {
+        return facultyService.getLongName();
+    }
+
 
 }
