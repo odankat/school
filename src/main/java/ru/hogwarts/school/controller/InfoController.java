@@ -15,17 +15,16 @@ import java.util.stream.Stream;
 @RestController
 @RequestMapping("port")
 
-public class infoController {
-    private final Logger logger = LoggerFactory.getLogger(infoController.class);
+public class InfoController {
+    private final Logger logger = LoggerFactory.getLogger(InfoController.class);
     @Value("${server.port}")
     private String port;
 
-    @Autowired
     private final PortService portService;
     private long startTime;
     private long finishTime;
 
-    public infoController(PortService portService) {
+    public InfoController(PortService portService) {
         this.portService = portService;
     }
 
