@@ -78,7 +78,8 @@ public class StudentService {
         logger.info("method for get lust student");
         return studentRepository.getLustStudent();
     }
-    public List<String> getStudentStartWithA(){
+
+    public List<String> getStudentStartWithA() {
         logger.info("method for get all students whose name begins with A");
         return studentRepository.findAll()
                 .stream()
@@ -88,12 +89,48 @@ public class StudentService {
                 .sorted()
                 .collect(Collectors.toList());
     }
-    public double averageAgeOfStudents(){
+
+    public double averageAgeOfStudents() {
         return studentRepository.findAll()
                 .stream()
                 .mapToInt(Student::getAge)
                 .average()
                 .orElse(0);
+    }
+
+    public void printParallel() {
+        List<Student> students = studentRepository.findAll();
+        logger.info(students.get(0).getName());
+        logger.info(students.get(1).getName());
+        new Thread(() -> {
+            logger.info(students.get(2).getName());
+            logger.info(students.get(3).getName());
+        }).start();
+        new Thread(() -> {
+            logger.info(students.get(4).getName());
+            logger.info(students.get(5).getName());
+        }).start();
+    }
+
+    public synchronized void printSynchronized() {
+
+        List<Student> students = studentRepository.findAll();
+        printName(students.get(0));
+        printName(students.get(1));
+
+        new Thread(() -> {
+            printName(students.get(2));
+            printName(students.get(3));
+        }).start();
+        new Thread(() -> {
+            printName(students.get(4));
+            printName(students.get(5));
+        }).start();
+
+    }
+
+    private synchronized void printName(Student student) {
+        logger.info(student.getName());
     }
 
 }
