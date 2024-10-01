@@ -112,7 +112,7 @@ public class StudentService {
         }).start();
     }
 
-    public synchronized void printSynchronized() {
+    public void printSynchronized() {
 
         List<Student> students = studentRepository.findAll();
         printName(students.get(0));
