@@ -5,10 +5,10 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
-@Profile("!production")
-public class PortServiceProd implements PortService{
+public class PortServiceProd implements PortService {
     @Value("${server.port}")
     private String port;
+
     @Override
     public String portInfo() {
         return port;

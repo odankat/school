@@ -77,4 +77,25 @@ public class StudentController {
     public List<Student> getLustStudent() {
         return studentService.getLustStudent();
     }
+
+    @GetMapping("name_start_with_a")
+    public List<String> getStudentStartWithA() {
+        return studentService.getStudentStartWithA();
+    }
+
+    @GetMapping("average_age_of_students")
+    public double averageAgeOfStudents() {
+        return studentService.averageAgeOfStudents();
+    }
+
+    @GetMapping("print_parallel")
+    public void printParallel() {
+        studentService.printParallel();
+
+    }
+
+    @GetMapping("print_synchronized")
+    public void printSinhr() {
+        studentService.printSynchronized();
+    }
 }
